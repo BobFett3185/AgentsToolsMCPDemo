@@ -7,7 +7,7 @@ This repo contains a small UTD course planner assistant scaffold for beginner to
 The demo intentionally keeps the architecture simple:
 
 - FastAPI exposes a `/chat` endpoint.
-- `backend/orchestrate.py` defines the Gemini 1.5 Flash agent, simulated memory, tool schemas, tool functions, and chat function.
+- `backend/orchestrate.py` defines the Gemini Flash agent, simulated memory, tool schemas, tool functions, and chat function.
 - Vanilla HTML/CSS/JS provides a tiny chat UI.
 - Mock JSON data stands in for future database-backed implementations.
 
@@ -55,9 +55,10 @@ For the first working agent loop, students only need a Gemini API key:
 3. Create a Gemini API key in Google AI Studio.
 4. Copy `.env.example` to `.env`.
 5. Replace `YOUR_GOOGLE_AI_STUDIO_KEY` with the real key.
-6. Start the app with `uvicorn backend.main:app --reload`.
+6. Leave `GEMINI_MODEL="gemini-flash-latest"` unless you want to test a specific Gemini model.
+7. Start the app with `uvicorn backend.main:app --reload`.
 
-Without `GOOGLE_API_KEY`, `/chat` still works in a deterministic teaching mode. It calls the mock tools directly so students can see the data flow before wiring the LLM.
+Without `GOOGLE_API_KEY`, `/chat` returns a setup message. This version expects students to use the real Gemini loop during the workshop.
 
 For a later MCP iteration:
 

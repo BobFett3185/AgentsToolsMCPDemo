@@ -1,4 +1,26 @@
 {
+  "CS 1336": {
+    "title": "Programming Fundamentals",
+    "prerequisites": [],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Katherine Johnson",
+        "days": ["Monday", "Wednesday"],
+        "time": "8:30 AM - 9:45 AM",
+        "room": "ECSN 2.112",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "Ada Lovelace",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
+      }
+    ]
+  },
   "CS 1337": {
     "title": "Computer Science I",
     "prerequisites": ["CS 1336"],
@@ -9,6 +31,64 @@
         "days": ["Monday", "Wednesday"],
         "time": "10:00 AM - 11:15 AM",
         "room": "ECSW 1.315",
+        "modality": "In person"
+      },
+      {
+        "section": "502",
+        "professor": "Tim Berners-Lee",
+        "days": ["Tuesday"],
+        "time": "7:00 PM - 9:45 PM",
+        "room": "ECSS 2.306",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 2305": {
+    "title": "Discrete Mathematics for Computing I",
+    "prerequisites": ["MATH 2413"],
+    "sections": [
+      {
+        "section": "003",
+        "professor": "Alan Turing",
+        "days": ["Tuesday", "Thursday"],
+        "time": "11:30 AM - 12:45 PM",
+        "room": "ECSW 2.210",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 2336": {
+    "title": "Computer Science II",
+    "prerequisites": ["CS 1337"],
+    "sections": [
+      {
+        "section": "004",
+        "professor": "Grace Hopper",
+        "days": ["Monday", "Wednesday"],
+        "time": "1:00 PM - 2:15 PM",
+        "room": "ECSW 2.415",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "Barbara Liskov",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
+      }
+    ]
+  },
+  "CS 3341": {
+    "title": "Probability and Statistics in Computer Science and Software Engineering",
+    "prerequisites": ["MATH 2414"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Karen Sparck Jones",
+        "days": ["Tuesday", "Thursday"],
+        "time": "10:00 AM - 11:15 AM",
+        "room": "ECSW 1.365",
         "modality": "In person"
       }
     ]
@@ -31,6 +111,172 @@
         "days": ["Monday"],
         "time": "7:00 PM - 9:45 PM",
         "room": "ECSS 2.306",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "Barbara Liskov",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
+      }
+    ]
+  },
+  "CS 3377": {
+    "title": "Systems Programming in UNIX and Other Environments",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Ken Thompson",
+        "days": ["Monday", "Wednesday"],
+        "time": "2:30 PM - 3:45 PM",
+        "room": "ECSS 2.102",
+        "modality": "In person"
+      },
+      {
+        "section": "502",
+        "professor": "Dennis Ritchie",
+        "days": ["Thursday"],
+        "time": "7:00 PM - 9:45 PM",
+        "room": "ECSW 1.355",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4337": {
+    "title": "Organization of Programming Languages",
+    "prerequisites": ["CS 3345"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Barbara Liskov",
+        "days": ["Tuesday", "Thursday"],
+        "time": "4:00 PM - 5:15 PM",
+        "room": "ECSW 2.325",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4341": {
+    "title": "Digital Logic and Computer Design",
+    "prerequisites": ["CS 2305"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Margaret Hamilton",
+        "days": ["Monday", "Wednesday"],
+        "time": "11:30 AM - 12:45 PM",
+        "room": "ECSS 2.415",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4347": {
+    "title": "Database Systems",
+    "prerequisites": ["CS 3345"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Edgar Codd",
+        "days": ["Tuesday", "Thursday"],
+        "time": "8:30 AM - 9:45 AM",
+        "room": "ECSW 2.305",
+        "modality": "In person"
+      },
+      {
+        "section": "501",
+        "professor": "Frances Allen",
+        "days": ["Wednesday"],
+        "time": "7:00 PM - 9:45 PM",
+        "room": "ECSS 2.311",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4384": {
+    "title": "Automata Theory",
+    "prerequisites": ["CS 2305", "CS 3345"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Alan Turing",
+        "days": ["Monday", "Wednesday"],
+        "time": "4:00 PM - 5:15 PM",
+        "room": "ECSW 1.260",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4485": {
+    "title": "Computer Science Project",
+    "prerequisites": ["CS 3345", "CS 3377"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Margaret Hamilton",
+        "days": ["Friday"],
+        "time": "10:00 AM - 12:45 PM",
+        "room": "ECSW 1.315",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4486": {
+    "title": "Software Engineering",
+    "prerequisites": ["CS 3345"],
+    "sections": [
+      {
+        "section": "002",
+        "professor": "Frances Allen",
+        "days": ["Tuesday", "Thursday"],
+        "time": "2:30 PM - 3:45 PM",
+        "room": "ECSW 2.410",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "Margaret Hamilton",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
+      }
+    ]
+  },
+  "CS 4375": {
+    "title": "Introduction to Machine Learning",
+    "prerequisites": ["CS 3345", "CS 3341"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Fei-Fei Li",
+        "days": ["Monday", "Wednesday"],
+        "time": "8:30 AM - 9:45 AM",
+        "room": "ECSW 2.215",
+        "modality": "In person"
+      },
+      {
+        "section": "501",
+        "professor": "Andrew Ng",
+        "days": ["Tuesday"],
+        "time": "7:00 PM - 9:45 PM",
+        "room": "ECSS 2.306",
+        "modality": "In person"
+      }
+    ]
+  },
+  "SE 3306": {
+    "title": "Mathematical Foundations of Software Engineering",
+    "prerequisites": ["CS 2305"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Leslie Lamport",
+        "days": ["Tuesday", "Thursday"],
+        "time": "11:30 AM - 12:45 PM",
+        "room": "ECSW 1.250",
         "modality": "In person"
       }
     ]

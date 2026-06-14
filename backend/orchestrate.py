@@ -1,5 +1,4 @@
 import os
-import re
 import json
 from pathlib import Path
 from typing import Any
@@ -7,12 +6,14 @@ from typing import Any
 from dotenv import load_dotenv
 
 
-MODEL_NAME = "gemini-1.5-flash"
+load_dotenv() # needed to get API keys from our .env file
+
+# Grab our model from .env, and point to the folder with our mock JSON data.
+MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 DATA_DIR = Path(__file__).resolve().parent / "data"
+MAX_TOOL_ROUNDS = 5 # max number of tool-calling rounds before we stop
 
-load_dotenv()
-
-
+# Instructions for agent -- feel free to edit this to change the agent's behavior.
 SYSTEM_INSTRUCTION = """
 You are a UTD course planner assistant for hackathon workshop demos.
 Help students reason about courses, prerequisites, sections, professors,
@@ -27,40 +28,54 @@ summarize the trend instead of dumping every review.
 # Tiny simulated memory. A database can replace this later.
 memory: list[dict[str, str]] = []
 
-
+# our chat function which is called by FastAPI when a user hits the /chat endpoint. 
 def chat(message: str, student_id: str = "demo-student") -> dict[str, Any]:
     """Called by FastAPI when the user sends a chat message."""
+
+    # Save the user message in our simple memory list. Right now this is for demo/debugging;
+    # we are not sending full memory back to Gemini yet.
     memory.append({"role": "user", "content": message})
 
-    if os.getenv("GOOGLE_API_KEY"):
-        reply, used_tools = run_gemini_agent(message, student_id)
-    else:
-        reply, used_tools = run_without_llm(message, student_id)
+    # if we do not have an API key we give a nice error 
+    if not os.getenv("GOOGLE_API_KEY"):
+        return {
+            "reply": "Missing GOOGLE_API_KEY. Add it to your .env file, then restart the backend.",
+            "model": MODEL_NAME,
+            "used_tools": [],
+        }
 
+    reply, used_tools = run_gemini_agent(message, student_id)
+    # run_gemini_agent handles any tool calls internally and returns the final text reply.
+
+    # Save the assistant reply too. Later, we could pass memory into the prompt for real chat history.
     memory.append({"role": "assistant", "content": reply})
 
+    # return stuff to the frontend
     return {"reply": reply, "model": MODEL_NAME, "used_tools": used_tools}
 
 
-def get_tool_schemas() -> list[dict[str, Any]]:
-    return TOOL_SCHEMAS
-
-
+# this is the function we called in chat that actually calls the gemini api
 def run_gemini_agent(message: str, student_id: str) -> tuple[str, list[str]]:
-    """Send the user message to Gemini and let it call our tools."""
+    """Send the user message to Gemini and let it call our tools.
+    we return the plain text reply for the chatbot and a list of tools called for debugging"""
+    
+    # import needed libraries
+    # if you are in your own env then run: "pip install -r requirements.txt"
     try:
         from google import genai
         from google.genai import types
     except ImportError:
-        reply, used_tools = run_without_llm(message, student_id)
         return (
-            f"{reply}\n\nInstall dependencies with `pip install -r requirements.txt` to enable Gemini calls.",
-            used_tools,
+            "Install dependencies with `pip install -r requirements.txt` to enable Gemini calls.",
+            [],
         )
 
+    # initialize gemini client and set up for tool calls
     client = genai.Client(api_key=os.environ["GOOGLE_API_KEY"])
     used_tools: list[str] = []
 
+    # we pass a prompt in addition to our instructions that gives our agent more context.
+    #  This is where we actually give the user's question and student id
     prompt = (
         f"Student ID: {student_id}\n"
         f"User question: {message}\n\n"
@@ -68,79 +83,81 @@ def run_gemini_agent(message: str, student_id: str) -> tuple[str, list[str]]:
         "GetPrevClasses and GetCourseInfo."
     )
 
-    contents = [types.Content(role="user", parts=[types.Part(text=prompt)])]
+    # we set up the content and config for our gemini call. This is where we pass in the tool schemas
+    contents = [types.Content(role="user", parts=[types.Part(text=prompt)])] # give it the prompt
     config = types.GenerateContentConfig(
-        system_instruction=SYSTEM_INSTRUCTION,
-        tools=[types.Tool(function_declarations=TOOL_SCHEMAS)],
+        system_instruction=SYSTEM_INSTRUCTION, # give it the instructions
+        tools=[types.Tool(function_declarations=TOOL_SCHEMAS)], # give it the tools
     )
 
-    response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=contents,
-        config=config,
-    )
+    #contents = individual message varying by user and their question 
+    # config = given to agent regarding tools and instructions. Consistent across users and questions
 
-    function_calls = getattr(response, "function_calls", None) or []
-    if not function_calls:
-        return response.text or "Gemini did not return a text response.", used_tools
+    #THIS IS THE MAIN AGENT LOOP WHERE TOOL CALLING HAPPENS!
+    #sample process: ask gemini -> call tool -> ask gemini -> call tool -> ask gemini -> get answer 
 
-    contents.append(response.candidates[0].content)
-    tool_results = []
+    # probably important for the hackers to do this part? 
+    # have them do this as well as implementing the actual tools
 
-    for call in function_calls:
-        tool_result = call_tool(call.name, dict(call.args or {}))
-        used_tools.append(call.name)
-        tool_results.append(
-            types.Part.from_function_response(name=call.name, response=tool_result)
+
+    # we let the agent run up to MAX_TOOL_ROUNDS(5) tool-calling rounds.
+    for _ in range(MAX_TOOL_ROUNDS):
+        try:
+            response = client.models.generate_content( # get a response
+                model=MODEL_NAME,
+                contents=contents,
+                config=config,
+            )
+
+        except Exception as error: # Give a nice error message if api call fails
+            return (
+                "Gemini returned an API error. Check that your `GOOGLE_API_KEY` is valid "
+                f"and that `{MODEL_NAME}` is available for your account. Details: {error}",
+                used_tools,
+            )
+
+        # grab the function calls in this array
+        function_calls = getattr(response, "function_calls", None) or []
+        if not function_calls: # if gemini don't wanna use tools
+            return response_text(response), used_tools # we return from the function with a text reply and tools used
+
+        # Add Gemini's function-call request message to the conversation history.
+        contents.append(response.candidates[0].content)
+        tool_results = []
+
+        # call all the tools it wanted to use and get the results
+        for call in function_calls:
+            tool_result = call_tool(call.name, dict(call.args or {}))
+            used_tools.append(call.name)
+            tool_results.append(
+                types.Part.from_function_response(name=call.name, response=tool_result)
+            )
+
+        # now we can append the tool RESULTS to the contents
+        contents.append(
+            types.Content(
+                role="tool",
+                parts=tool_results,
+            )
         )
 
-    contents.append(types.Content(role="tool", parts=tool_results))
-
-    final_response = client.models.generate_content(
-        model=MODEL_NAME,
-        contents=contents,
-        config=config,
+    # we either return before here or give this message after 5 tool rounds
+    return (
+        "Gemini kept asking for tools and did not produce a final answer. Try a more specific question.",
+        used_tools,
     )
-    return final_response.text or "Gemini did not return a final text response.", used_tools
 
 
-def run_without_llm(message: str, student_id: str) -> tuple[str, list[str]]:
-    """Simple mode for teaching before API keys are added."""
-    course_number = extract_course_number(message) or "CS 3345"
-    course_info = get_course_info(course_number)
-    student_info = get_prev_classes(student_id)
 
-    if course_info["status"] != "success":
-        return f"I do not have mock data for {course_number}.", ["GetCourseInfo"]
+# these are the functions that implement our tools. In a real app these could call databases instead 
+# its important to note that these have to be actually called by our code, not the agent 
+# the agent tells us which tool to call and we call these functions
 
-    completed = set(student_info.get("completedCourses", []))
-    missing = [
-        course
-        for course in course_info.get("prerequisites", [])
-        if course not in completed
-    ]
+# they are all pretty simple and similar just load and return data from a json 
 
-    if missing:
-        prereq_sentence = f"You are missing {', '.join(missing)}."
-    else:
-        prereq_sentence = "You meet the listed prerequisites."
-
-    sections = []
-    for section in course_info["sections"]:
-        sections.append(
-            f"{section['section']} with {section['professor']} on "
-            f"{', '.join(section['days'])} from {section['time']}"
-        )
-
-    reply = (
-        f"{course_info['courseNumber']} is {course_info['title']}. "
-        f"{prereq_sentence}\n\nSections:\n- " + "\n- ".join(sections)
-    )
-    return reply, ["GetCourseInfo", "GetPrevClasses"]
-
-
+# get course info tool 
 def get_course_info(courseNumber: str) -> dict[str, Any]:
-    """Return course metadata and all sections for a course like CS 3345."""
+    """Return course metadata and all sections for a courseNumber like CS 3345."""
     courses = load_json("courses.json")
     course_number = courseNumber.strip().upper()
     course = courses.get(course_number)
@@ -151,6 +168,8 @@ def get_course_info(courseNumber: str) -> dict[str, Any]:
     return {"status": "success", "courseNumber": course_number, **course}
 
 
+
+# get previous classes tool
 def get_prev_classes(studentID: str) -> dict[str, Any]:
     """Return a student's completed courses."""
     students = load_json("students.json")
@@ -161,6 +180,10 @@ def get_prev_classes(studentID: str) -> dict[str, Any]:
 
     return {"status": "success", "studentID": studentID, **student}
 
+
+
+#get rate my professor reviews tool
+# this can be replaced by the web search mcp 
 
 def get_rmp(professor: str, course: str) -> dict[str, Any]:
     """Return mock professor review data."""
@@ -182,6 +205,8 @@ def get_rmp(professor: str, course: str) -> dict[str, Any]:
     }
 
 
+
+# this is our tool call handler that we call to use tools
 def call_tool(name: str, args: dict[str, Any]) -> dict[str, Any]:
     if name == "GetCourseInfo":
         return get_course_info(args["courseNumber"])
@@ -193,17 +218,32 @@ def call_tool(name: str, args: dict[str, Any]) -> dict[str, Any]:
     return {"status": "error", "message": f"Unknown tool: {name}"}
 
 
+
+# helper function to load mock data
 def load_json(file_name: str) -> dict[str, Any]:
     with (DATA_DIR / file_name).open(encoding="utf-8") as file:
         return json.load(file)
 
 
-def extract_course_number(message: str) -> str | None:
-    match = re.search(r"\b([A-Za-z]{2,4})\s*-?\s*(\d{4})\b", message)
-    if match is None:
-        return None
 
-    return f"{match.group(1).upper()} {match.group(2)}"
+# helper function to extract text from gemini response
+def response_text(response: Any) -> str:
+    """Read only text parts, avoiding SDK warnings about function-call parts."""
+    try:
+        parts = response.candidates[0].content.parts
+    except (AttributeError, IndexError):
+        return "Gemini did not return a readable response."
+
+    text_parts = [part.text for part in parts if getattr(part, "text", None)]
+    if not text_parts:
+        return "Gemini did not return a text response."
+
+    return "\n".join(text_parts)
+
+
+
+# these are our tool schemas in the format gemini can understand
+# we pass this information to the gemini agent so it knows what tools it has and how to call them
 
 
 TOOL_SCHEMAS = [
@@ -248,16 +288,3 @@ TOOL_SCHEMAS = [
         },
     },
 ]
-
-
-try:
-    from google.adk.agents.llm_agent import Agent
-
-    root_agent = Agent(
-        model=MODEL_NAME,
-        name="utd_course_planner_agent",
-        instruction=SYSTEM_INSTRUCTION,
-        tools=[get_course_info, get_prev_classes, get_rmp],
-    )
-except ImportError:
-    root_agent = None

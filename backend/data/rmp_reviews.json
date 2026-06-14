@@ -1,5 +1,69 @@
 {
+  "ada lovelace": {
+    "CS 1336": {
+      "score": 4.6,
+      "difficulty": 2.4,
+      "wouldTakeAgainPercent": 88,
+      "reviews": [
+        "Good intro course if you are new to programming.",
+        "Lectures are organized and the examples are beginner friendly.",
+        "Homework is steady but not overwhelming."
+      ]
+    },
+    "CS 1337": {
+      "score": 4.7,
+      "difficulty": 2.8,
+      "wouldTakeAgainPercent": 90,
+      "reviews": [
+        "Patient with beginners and gives practical coding examples.",
+        "Weekly labs build up steadily.",
+        "Clear grading rubrics."
+      ]
+    }
+  },
+  "alan turing": {
+    "CS 2305": {
+      "score": 4.5,
+      "difficulty": 3.4,
+      "wouldTakeAgainPercent": 86,
+      "reviews": [
+        "Very proof-focused but explains why the math matters.",
+        "Quizzes reward keeping up with lecture.",
+        "Great if you like theory."
+      ]
+    },
+    "CS 3345": {
+      "score": 4.4,
+      "difficulty": 3.8,
+      "wouldTakeAgainPercent": 84,
+      "reviews": [
+        "Lecture is theory-heavy but rewarding.",
+        "Exams require understanding proofs and runtime analysis.",
+        "Good fit if you like formal explanations."
+      ]
+    },
+    "CS 4384": {
+      "score": 4.2,
+      "difficulty": 4.1,
+      "wouldTakeAgainPercent": 78,
+      "reviews": [
+        "Automata is challenging but the lectures are precise.",
+        "Start homework early because proofs take time.",
+        "Office hours help a lot for exam prep."
+      ]
+    }
+  },
   "grace hopper": {
+    "CS 2336": {
+      "score": 4.9,
+      "difficulty": 3.0,
+      "wouldTakeAgainPercent": 94,
+      "reviews": [
+        "Excellent at explaining object-oriented programming.",
+        "Projects feel practical and build confidence.",
+        "Very responsive on discussion boards."
+      ]
+    },
     "CS 3345": {
       "score": 4.8,
       "difficulty": 3.2,
@@ -11,27 +75,197 @@
       ]
     }
   },
-  "alan turing": {
-    "CS 3345": {
-      "score": 4.4,
-      "difficulty": 3.8,
-      "wouldTakeAgainPercent": 84,
+  "barbara liskov": {
+    "CS 2336": {
+      "score": 4.3,
+      "difficulty": 3.5,
+      "wouldTakeAgainPercent": 81,
       "reviews": [
-        "Lecture is theory-heavy but rewarding.",
-        "Exams require understanding proofs and runtime analysis.",
-        "Good fit if you like formal explanations."
+        "Online section is flexible but you need discipline.",
+        "Assignments are detailed and grading is strict.",
+        "Strong focus on clean abstractions."
+      ]
+    },
+    "CS 3345": {
+      "score": 4.1,
+      "difficulty": 3.7,
+      "wouldTakeAgainPercent": 76,
+      "reviews": [
+        "Good online materials, but exams are not easy.",
+        "Emphasizes correctness and edge cases.",
+        "Best for students who can learn independently."
+      ]
+    },
+    "CS 4337": {
+      "score": 4.5,
+      "difficulty": 3.9,
+      "wouldTakeAgainPercent": 83,
+      "reviews": [
+        "Programming languages is abstract but she makes it coherent.",
+        "Assignments are conceptually deep.",
+        "Great professor if you enjoy language design."
       ]
     }
   },
-  "ada lovelace": {
-    "CS 1337": {
+  "ken thompson": {
+    "CS 3377": {
+      "score": 4.6,
+      "difficulty": 3.6,
+      "wouldTakeAgainPercent": 87,
+      "reviews": [
+        "Great hands-on UNIX experience.",
+        "Labs can be tricky but are useful for internships.",
+        "Expects comfort with debugging."
+      ]
+    }
+  },
+  "dennis ritchie": {
+    "CS 3377": {
+      "score": 4.0,
+      "difficulty": 4.0,
+      "wouldTakeAgainPercent": 72,
+      "reviews": [
+        "C programming assignments are intense.",
+        "You learn a lot, but the workload spikes.",
+        "Helpful if you ask specific questions."
+      ]
+    }
+  },
+  "edgar codd": {
+    "CS 4347": {
+      "score": 4.4,
+      "difficulty": 3.3,
+      "wouldTakeAgainPercent": 85,
+      "reviews": [
+        "Database design examples are very clear.",
+        "SQL practice is useful and realistic.",
+        "Exams match lectures if you study consistently."
+      ]
+    }
+  },
+  "frances allen": {
+    "CS 4347": {
+      "score": 4.2,
+      "difficulty": 3.4,
+      "wouldTakeAgainPercent": 80,
+      "reviews": [
+        "Evening database section is organized.",
+        "Projects are team-based and practical.",
+        "Good feedback on schema design."
+      ]
+    },
+    "CS 4486": {
+      "score": 4.5,
+      "difficulty": 3.1,
+      "wouldTakeAgainPercent": 89,
+      "reviews": [
+        "Software engineering project is well-scoped.",
+        "Good balance of design docs and coding.",
+        "Great prep for hackathon-style teamwork."
+      ]
+    }
+  },
+  "margaret hamilton": {
+    "CS 4341": {
+      "score": 4.1,
+      "difficulty": 3.8,
+      "wouldTakeAgainPercent": 77,
+      "reviews": [
+        "Digital logic is detail-heavy but fair.",
+        "Labs help connect circuits to computer architecture.",
+        "Study the diagrams before exams."
+      ]
+    },
+    "CS 4485": {
       "score": 4.7,
-      "difficulty": 2.8,
+      "difficulty": 3.0,
+      "wouldTakeAgainPercent": 91,
+      "reviews": [
+        "Project course feels realistic and well mentored.",
+        "Great for building portfolio material.",
+        "Milestones keep teams on track."
+      ]
+    },
+    "CS 4486": {
+      "score": 4.6,
+      "difficulty": 2.9,
       "wouldTakeAgainPercent": 90,
       "reviews": [
-        "Patient with beginners and gives practical coding examples.",
-        "Weekly labs build up steadily.",
-        "Clear grading rubrics."
+        "Online software engineering section is clear and flexible.",
+        "Rubrics are detailed.",
+        "Strong focus on planning and reliability."
+      ]
+    }
+  },
+  "fei-fei li": {
+    "CS 4375": {
+      "score": 4.8,
+      "difficulty": 3.6,
+      "wouldTakeAgainPercent": 93,
+      "reviews": [
+        "Machine learning lectures are engaging and visual.",
+        "Projects require Python comfort.",
+        "Explains intuition before math."
+      ]
+    }
+  },
+  "andrew ng": {
+    "CS 4375": {
+      "score": 4.7,
+      "difficulty": 3.4,
+      "wouldTakeAgainPercent": 91,
+      "reviews": [
+        "Evening ML section is practical and well-paced.",
+        "Assignments are useful for portfolio projects.",
+        "Good explanations of gradient descent and model evaluation."
+      ]
+    }
+  },
+  "leslie lamport": {
+    "SE 3306": {
+      "score": 4.3,
+      "difficulty": 3.7,
+      "wouldTakeAgainPercent": 82,
+      "reviews": [
+        "Mathematical foundations are taught rigorously.",
+        "Homework rewards precision.",
+        "Good preparation for formal methods topics."
+      ]
+    }
+  },
+  "katherine johnson": {
+    "CS 1336": {
+      "score": 4.9,
+      "difficulty": 2.2,
+      "wouldTakeAgainPercent": 96,
+      "reviews": [
+        "Fantastic for first programming class.",
+        "Explains problem solving step by step.",
+        "Very encouraging and organized."
+      ]
+    }
+  },
+  "tim berners-lee": {
+    "CS 1337": {
+      "score": 4.2,
+      "difficulty": 3.0,
+      "wouldTakeAgainPercent": 79,
+      "reviews": [
+        "Evening section is convenient for busy students.",
+        "Coding assignments are practical.",
+        "Lectures move quickly, so review after class."
+      ]
+    }
+  },
+  "karen sparck jones": {
+    "CS 3341": {
+      "score": 4.4,
+      "difficulty": 3.5,
+      "wouldTakeAgainPercent": 84,
+      "reviews": [
+        "Stats examples connect well to computing.",
+        "Exams are fair if you practice problems.",
+        "Helpful for students interested in ML."
       ]
     }
   }

@@ -7,6 +7,14 @@ const input = document.querySelector("#messageInput");
 const messages = document.querySelector("#messages");
 const studentId = document.querySelector("#studentId");
 
+/*
+This file handles the frontend for our chat interface. 
+No need to code anything in here -- but feel free to mess around with it later on
+
+^ The same goes for index.html and styles.css
+
+*/
+
 function addMessage(role, text) {
   const bubble = document.createElement("article");
   bubble.className = `message ${role}`;
