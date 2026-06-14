@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UTD Course Planner Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="chat-panel" aria-label="Course planner chat">
+        <header class="topbar">
+          <div>
+            <h1>UTD Course Planner</h1>
+            <p>Gemini 1.5 Flash agent demo</p>
+          </div>
+          <label class="student-picker">
+            <span>Student</span>
+            <select id="studentId">
+              <option value="demo-student">demo-student</option>
+              <option value="new-student">new-student</option>
+            </select>
+          </label>
+        </header>
+
+        <div id="messages" class="messages" aria-live="polite">
+          <article class="message assistant">
+            Ask about CS 3345 sections, prerequisites, professor reviews, or schedule planning.
+          </article>
+        </div>
+
+        <form id="chatForm" class="composer">
+          <input
+            id="messageInput"
+            name="message"
+            type="text"
+            autocomplete="off"
+            placeholder="Can I take CS 3345 next semester?"
+            required
+          >
+          <button type="submit">Send</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

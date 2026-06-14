@@ -1,0 +1,38 @@
+{
+  "grace hopper": {
+    "CS 3345": {
+      "score": 4.8,
+      "difficulty": 3.2,
+      "wouldTakeAgainPercent": 92,
+      "reviews": [
+        "Explains data structures clearly and connects them to interview-style problems.",
+        "Projects are fair, but you need to start early.",
+        "Office hours are very helpful before exams."
+      ]
+    }
+  },
+  "alan turing": {
+    "CS 3345": {
+      "score": 4.4,
+      "difficulty": 3.8,
+      "wouldTakeAgainPercent": 84,
+      "reviews": [
+        "Lecture is theory-heavy but rewarding.",
+        "Exams require understanding proofs and runtime analysis.",
+        "Good fit if you like formal explanations."
+      ]
+    }
+  },
+  "ada lovelace": {
+    "CS 1337": {
+      "score": 4.7,
+      "difficulty": 2.8,
+      "wouldTakeAgainPercent": 90,
+      "reviews": [
+        "Patient with beginners and gives practical coding examples.",
+        "Weekly labs build up steadily.",
+        "Clear grading rubrics."
+      ]
+    }
+  }
+}

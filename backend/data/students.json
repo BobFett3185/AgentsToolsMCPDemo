@@ -1,0 +1,10 @@
+{
+  "demo-student": {
+    "name": "Demo Student",
+    "completedCourses": ["CS 1336", "CS 1337", "CS 2336", "MATH 2418"]
+  },
+  "new-student": {
+    "name": "New Student",
+    "completedCourses": ["CS 1336"]
+  }
+}

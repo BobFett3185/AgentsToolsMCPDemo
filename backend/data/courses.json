@@ -1,0 +1,38 @@
+{
+  "CS 1337": {
+    "title": "Computer Science I",
+    "prerequisites": ["CS 1336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Ada Lovelace",
+        "days": ["Monday", "Wednesday"],
+        "time": "10:00 AM - 11:15 AM",
+        "room": "ECSW 1.315",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 3345": {
+    "title": "Data Structures and Introduction to Algorithmic Analysis",
+    "prerequisites": ["CS 2336", "MATH 2418"],
+    "sections": [
+      {
+        "section": "002",
+        "professor": "Grace Hopper",
+        "days": ["Tuesday", "Thursday"],
+        "time": "1:00 PM - 2:15 PM",
+        "room": "ECSW 2.410",
+        "modality": "In person"
+      },
+      {
+        "section": "501",
+        "professor": "Alan Turing",
+        "days": ["Monday"],
+        "time": "7:00 PM - 9:45 PM",
+        "room": "ECSS 2.306",
+        "modality": "In person"
+      }
+    ]
+  }
+}
