@@ -49,6 +49,7 @@ def health_check() -> dict[str, str]:
 def chat_endpoint(request: ChatRequest) -> dict[str, Any]:
     return chat(message=request.message, student_id=request.student_id)
 
+
 # mount the frontend static files for easier running of the demo
 FRONTEND_DIR = Path(__file__).resolve().parents[1] / "frontend"
 app.mount("/", StaticFiles(directory=FRONTEND_DIR, html=True), name="frontend")

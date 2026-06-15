@@ -18,9 +18,19 @@ No need to code anything in here -- but feel free to mess around with it later o
 function addMessage(role, text) {
   const bubble = document.createElement("article");
   bubble.className = `message ${role}`;
-  bubble.textContent = text;
+  bubble.textContent = formatMessageText(text);
   messages.appendChild(bubble);
   messages.scrollTop = messages.scrollHeight;
+}
+
+function formatMessageText(text) {
+  return text
+    .replace(/\s+(#{2,6}\s+)/g, "\n\n$1")
+    .replace(/\s+(\*\s+\*\*)/g, "\n\n$1")
+    .replace(/\s+(\*\s+[A-Z])/g, "\n\n$1")
+    .replace(/\s+(\|[^|\n]+\|[^|\n]+\|)/g, "\n$1")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
 }
 
 async function sendMessage(message) {

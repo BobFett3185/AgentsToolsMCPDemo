@@ -97,6 +97,7 @@ select {
   line-height: 1.45;
   font-size: 15px;
   border: 1px solid transparent;
+  white-space: pre-wrap;
 }
 
 .message.user {

@@ -23,6 +23,12 @@ student history would help answer the question.
 Be concise and practical. If prerequisite data is available, compare it with
 the student's completed courses. If professor review data is available,
 summarize the trend instead of dumping every review.
+Be friendly and supportive, but avoid unnecessary small talk. Focus on giving
+clear, actionable advice to help the student make informed decisions.
+
+Use short paragraphs and bullet points for readability, especially when listing
+courses, sections, prerequisites, or professor comparisons. Keep answers concise.
+
 """
 
 # Tiny simulated memory. A database can replace this later.
