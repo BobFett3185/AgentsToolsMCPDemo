@@ -1,17 +1,15 @@
-# AgentsToolsMCP
+# Agents, Tools, MCP Workshop
 
-HackUTD Fall 2026 workshop on agents, tools, and MCP.
+This repo contains a small UTD course planner assistant implemented with an AI agent with tool use and MCP. 
 
-This repo contains a small UTD course planner assistant scaffold for beginner to intermediate CS students preparing for a hackathon.
-
-The demo intentionally keeps the architecture simple:
+This demo keeps the architecture very simple:
 
 - FastAPI exposes a `/chat` endpoint.
 - `backend/orchestrate.py` defines the Gemini Flash agent, simulated memory, tool schemas, tool functions, and chat function.
 - Vanilla HTML/CSS/JS provides a tiny chat UI.
 - Mock JSON data stands in for future database-backed implementations.
 
-## Project Layout
+## what are all these files???
 
 ```text
 backend/
@@ -35,30 +33,22 @@ pip install -r requirements.txt
 uvicorn backend.main:app --reload
 ```
 
-Then open `http://localhost:8000` in your browser. The same FastAPI server serves both the API and the vanilla frontend.
+Then open `http://localhost:8000` in your browser. The same FastAPI server serves everything. 
 
-Useful endpoints:
-
-- `GET /` - chat UI
-- `GET /health` - simple API health check
-- `GET /tools` - tool schemas exposed for the workshop
-- `POST /chat` - chat endpoint used by the frontend
-
-You can inspect the ADK-style `root_agent` definition near the bottom of `backend/orchestrate.py`.
+Go to `http://localhost:8000`/docs to see nice interative documentation of the endpoints you have. 
 
 ## API Keys
 
 For the first working agent loop, students only need a Gemini API key:
 
 1. Install Python 3.10 or later.
-2. Install dependencies with `pip install -r requirements.txt`.
+2. Install dependencies with `pip install -r requirements.txt` if not in a codespace
 3. Create a Gemini API key in Google AI Studio.
-4. Copy `.env.example` to `.env`.
-5. Replace `YOUR_GOOGLE_AI_STUDIO_KEY` with the real key.
-6. Leave `GEMINI_MODEL="gemini-flash-latest"` unless you want to test a specific Gemini model.
-7. Start the app with `uvicorn backend.main:app --reload`.
-
-Without `GOOGLE_API_KEY`, `/chat` returns a setup message. This version expects students to use the real Gemini loop during the workshop.
+4. Make a .env file in the root of the project, meaning it should not be in any folder
+5. Copy `.env.example` to `.env`
+6. Replace `YOUR_GOOGLE_AI_STUDIO_KEY` with the real key.
+7. Make sure the model is : GEMINI_MODEL= gemini-3.1-flash-lite
+8. Start the app with `uvicorn backend.main:app --reload`
 
 For a later MCP iteration:
 
@@ -67,10 +57,15 @@ For a later MCP iteration:
 3. Replace the mock `GetRMP` body in `backend/orchestrate.py` with a Brave MCP search call.
 4. Return raw review snippets to Gemini so the agent can summarize them.
 
-## Workshop Notes
+## Summary
 
-The first iteration uses hard-coded mock data and a simple explicit tool loop. Future iterations can replace these with:
+With no buzzwords, all this really boils down to is giving an LLM access to tools it can ask you for. The LLM decides which tool(s) it needs to complete its tasks and tells you. You have to handle this and call the correct tool function (which you implemented). Then you give the results from that function call back to the LLM which uses it to either give an output or call another tool.
 
-- a real database for courses and student histories
+This is known as the agent loop.
+
+We strongly encourage you to keep building so here are some suggestions for future improvements for this specific project:
+
+- a real database for courses and student histories rather than hardcoded json
 - Brave Search MCP for Rate My Professors lookup
 - ADK sessions/memory instead of the current list-based simulated memory
+- Implementing multiple agents for more use cases.
