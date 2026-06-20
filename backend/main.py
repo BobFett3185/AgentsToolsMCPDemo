@@ -23,7 +23,8 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply: str
     model: str
-    used_tools: list[str] = []
+    used_tools: list[str] = Field(default_factory=list)
+    trace: list[dict[str, Any]] = Field(default_factory=list)
 
 # create fastapi app
 app = FastAPI(

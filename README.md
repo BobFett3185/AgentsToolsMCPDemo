@@ -5,7 +5,9 @@ This repo contains a small UTD course planner assistant implemented with an AI a
 This demo keeps the architecture very simple:
 
 - FastAPI exposes a `/chat` endpoint.
-- `backend/orchestrate.py` defines the Gemini Flash agent, simulated memory, tool schemas, tool functions, and chat function.
+- `backend/orchestrate.py` defines the top-level Gemini orchestrator agent, simulated memory, and chat function.
+- `backend/subagents.py` defines the eligibility and reviews sub-agents.
+- `backend/data_tools.py` defines the mock JSON-backed tool functions and tool schemas.
 - Vanilla HTML/CSS/JS provides a tiny chat UI.
 - Mock JSON data stands in for future database-backed implementations.
 
@@ -14,7 +16,9 @@ This demo keeps the architecture very simple:
 ```text
 backend/
   main.py                  FastAPI app, request/response models, endpoints
-  orchestrate.py           Agent, tool functions, schemas, memory, chat entrypoint
+  orchestrate.py           Orchestrator agent, memory, chat entrypoint
+  subagents.py             Eligibility and reviews sub-agents
+  data_tools.py            JSON-backed tools and tool schemas
   data/
     courses.json           Mock course and section data
     rmp_reviews.json       Mock Rate My Professors-style data
@@ -47,14 +51,14 @@ For the first working agent loop, students only need a Gemini API key:
 4. Make a .env file in the root of the project, meaning it should not be in any folder
 5. Copy `.env.example` to `.env`
 6. Replace `YOUR_GOOGLE_AI_STUDIO_KEY` with the real key.
-7. Make sure the model is : GEMINI_MODEL= gemini-3.1-flash-lite
+7. Make sure the model is: `GEMINI_MODEL="gemini-2.0-flash"`
 8. Start the app with `uvicorn backend.main:app --reload`
 
 For a later MCP iteration:
 
 1. Create a Brave Search API key.
 2. Install/configure the Brave Search MCP server.
-3. Replace the mock `GetRMP` body in `backend/orchestrate.py` with a Brave MCP search call.
+3. Replace the mock `GetRMPScore` body in `backend/data_tools.py` with a Brave MCP search call.
 4. Return raw review snippets to Gemini so the agent can summarize them.
 
 ## Summary

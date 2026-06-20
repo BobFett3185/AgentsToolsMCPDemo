@@ -8,11 +8,10 @@ const messages = document.querySelector("#messages");
 const studentId = document.querySelector("#studentId");
 
 /*
-This file handles the frontend for our chat interface. 
+This file handles the frontend for our chat interface.
 No need to code anything in here -- but feel free to mess around with it later on
 
 ^ The same goes for index.html and styles.css
-
 */
 
 function addMessage(role, text) {
@@ -20,6 +19,31 @@ function addMessage(role, text) {
   bubble.className = `message ${role}`;
   bubble.textContent = formatMessageText(text);
   messages.appendChild(bubble);
+  messages.scrollTop = messages.scrollHeight;
+}
+
+function addTrace(trace) {
+  if (!trace || trace.length === 0) {
+    return;
+  }
+
+  const details = document.createElement("details");
+  details.className = "trace";
+
+  const summary = document.createElement("summary");
+  summary.textContent = `Trace (${trace.length} steps)`;
+  details.appendChild(summary);
+
+  const list = document.createElement("ol");
+  for (const step of trace) {
+    const item = document.createElement("li");
+    const detailsText = JSON.stringify(step.details || {});
+    item.textContent = `${step.agent} - ${step.event} ${detailsText}`;
+    list.appendChild(item);
+  }
+
+  details.appendChild(list);
+  messages.appendChild(details);
   messages.scrollTop = messages.scrollHeight;
 }
 
@@ -67,8 +91,12 @@ form.addEventListener("submit", async (event) => {
   try {
     const data = await sendMessage(message);
     addMessage("assistant", data.reply);
+    addTrace(data.trace);
   } catch (error) {
-    addMessage("assistant", "The API is not reachable yet. Start FastAPI with uvicorn backend.main:app --reload.");
+    addMessage(
+      "assistant",
+      "The API is not reachable yet. Start FastAPI with uvicorn backend.main:app --reload."
+    );
   } finally {
     form.querySelector("button").disabled = false;
     input.focus();
