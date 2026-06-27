@@ -1,8 +1,5 @@
 Verify that everything works 
 What should we remove for the people to code 
 
-Impelment a simple memory  -- array is defined but never passed
-
-Implement the web search mcp instead of the json tool for RMP 
 
 

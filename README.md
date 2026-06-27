@@ -1,6 +1,6 @@
 # Agents, Tools, MCP Workshop
 
-This repo contains a small UTD course planner assistant implemented with an AI agent with tool use and MCP. 
+This repo contains a small UTD course planner assistant implemented with an AI agent with tool use and MCP.
 
 This demo keeps the architecture very simple:
 
@@ -91,9 +91,9 @@ pip install -r requirements.txt
 uvicorn backend.main:app --reload
 ```
 
-Then open `http://localhost:8000` in your browser. The same FastAPI server serves everything. 
+Then open `http://localhost:8000` in your browser. The same FastAPI server serves everything.
 
-Go to `http://localhost:8000`/docs to see nice interative documentation of the endpoints you have. 
+Go to `http://localhost:8000`/docs to see nice interative documentation of the endpoints you have.
 
 ## API Keys
 
@@ -117,21 +117,18 @@ For a later MCP iteration:
 
 ## Summary
 
-With no buzzwords, all this really boils down to giving an LLM access to tools
-it can ask you for. The LLM decides which tool or sub-agent it needs to complete
-its task and tells you. You handle that request by calling the correct Python
-function. Then you give the result back to the LLM, which uses it to either
-answer the user or call another tool.
+All this really boils down to giving an LLM access to functions (tools)
+it can ask you to execute for it. The LLM just has to decide if and which function or sub-agent it needs to do its task and tells you. You handle the request by calling the correct Python function. Then you give the result back to the LLM, which uses it to either answer the user or call another tool.
 
 This is known as the agent loop.
 
-Multi-agent orchestration uses the same loop, but breaks the work into parts.
-One agent coordinates the overall request, while smaller specialist agents do
+Multi-agent orchestration just breaks the work into parts.
+One agent coordinates the overall requests, while smaller specialist agents do
 focused work with their own tools.
 
 We strongly encourage you to keep building so here are some suggestions for future improvements for this specific project:
 
 - a real database for courses and student histories rather than hardcoded json
 - Brave Search MCP for Rate My Professors lookup
-- ADK sessions/memory instead of the current list-based simulated memory
-- Implementing multiple agents for more use cases.
+- Simulate memory with either a basic data structure, or a database
+- Adding more agents
