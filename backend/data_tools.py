@@ -8,6 +8,7 @@ DATA_DIR = Path(__file__).resolve().parent / "data"
 
 # These are the functions that implement our tools.
 # In a real app these could call databases or MCP servers instead.
+# They grab mock data from JSON and return it in a tool-friendly shape.
 
 def get_course_info(courseCode: str) -> dict[str, Any]:
     """Return course metadata and all sections for a courseCode like CS 3345."""
@@ -22,7 +23,7 @@ def get_course_info(courseCode: str) -> dict[str, Any]:
 
 
 def get_student_history(studentID: str) -> dict[str, Any]:
-    """Return a student's completed courses."""
+    """Return a student's year and completed courses."""
     students = load_json("students.json")
     student = students.get(studentID)
 
@@ -136,7 +137,7 @@ ELIGIBILITY_TOOL_SCHEMAS = [
     },
     {
         "name": "GetStudentHistory",
-        "description": "Get the courses a student has already completed.",
+        "description": "Get a student's year and completed courses.",
         "parameters": {
             "type": "object",
             "properties": {

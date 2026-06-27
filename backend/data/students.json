@@ -1,6 +1,7 @@
 {
   "demo-student": {
     "name": "Keane",
+    "year": "junior",
     "completedCourses": [
       "CS 1336",
       "CS 1337",
@@ -13,6 +14,7 @@
   },
   "keane": {
     "name": "Keane",
+    "year": "junior",
     "completedCourses": [
       "CS 1336",
       "CS 1337",
@@ -25,10 +27,12 @@
   },
   "new-student": {
     "name": "You",
+    "year": "freshman",
     "completedCourses": ["CS 1336"]
   },
   "systems-track": {
     "name": "Systems Track Student",
+    "year": "senior",
     "completedCourses": [
       "CS 1336",
       "CS 1337",
@@ -43,6 +47,7 @@
   },
   "ai-curious": {
     "name": "AI Curious Student",
+    "year": "junior",
     "completedCourses": [
       "CS 1336",
       "CS 1337",
@@ -57,6 +62,7 @@
   },
   "custom-student": {
     "name": "Custom Student",
+    "year": "sophomore",
     "completedCourses": [
       "CS 1336",
       "CS 1337"

@@ -17,10 +17,11 @@ MODEL_NAME = os.getenv("GEMINI_MODEL", "gemini-flash-latest")
 MAX_TOOL_ROUNDS = 5
 
 
+# some instructions for the sub agents 
 ELIGIBILITY_AGENT_INSTRUCTION = """
 You are the eligibility sub-agent for a UTD course planning demo.
 Your job is to answer questions about course details, sections, prerequisites,
-and whether a student appears eligible based on completed courses.
+the student's year, and whether a student appears eligible based on completed courses.
 
 Use GetStudentHistory for student records, GetCourseCatalog for broad schedule
 planning, and GetCourseInfo for details about specific courses.
@@ -72,7 +73,7 @@ def run_subagent(
     used_tools: list[str] = []
     add_trace(trace, agent_name, "model_selected", {"model": MODEL_NAME})
 
-    for _ in range(MAX_TOOL_ROUNDS):
+    for _ in range(MAX_TOOL_ROUNDS): # has a similar thing here where it can call tools multiple times
         try:
             add_trace(trace, agent_name, "llm_request", {"model": MODEL_NAME})
             response = client.models.generate_content(
@@ -175,6 +176,8 @@ def run_reviews_agent(question: str, trace: list[dict[str, Any]]) -> dict[str, A
     )
 
 
+
+# helper functions
 def response_text(response: Any) -> str:
     """Read only text parts, avoiding SDK warnings about function-call parts."""
     try:

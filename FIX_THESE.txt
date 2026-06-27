@@ -1,5 +1,6 @@
 Verify that everything works 
 What should we remove for the people to code 
+- probably in orchstrate chat and run gemini agent functions 
 
 
 

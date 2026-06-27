@@ -5,7 +5,7 @@ This repo contains a small UTD course planner assistant implemented with an AI a
 This demo keeps the architecture very simple:
 
 - FastAPI exposes a `/chat` endpoint.
-- `backend/orchestrate.py` defines the top-level Gemini orchestrator agent, simulated memory, and chat function.
+- `backend/orchestrate.py` defines the top-level Gemini orchestrator agent and chat function.
 - `backend/subagents.py` defines the eligibility and reviews sub-agents.
 - `backend/data_tools.py` defines the mock JSON-backed tool functions and tool schemas.
 - Vanilla HTML/CSS/JS provides a tiny chat UI.
@@ -31,7 +31,7 @@ The important idea is that a sub-agent can look like a tool to the agent above
 it. The orchestrator does not directly read JSON files. Instead, it delegates
 focused work to specialist sub-agents:
 
-- `EligibilityAgent` handles student history, course prerequisites, and schedule eligibility.
+- `EligibilityAgent` handles student year, course history, prerequisites, and schedule eligibility.
 - `ReviewsAgent` handles professor review data.
 
 Each sub-agent has its own smaller tool loop. For example, if the user asks for
@@ -70,13 +70,13 @@ answer event.
 ```text
 backend/
   main.py                  FastAPI app, request/response models, endpoints
-  orchestrate.py           Orchestrator agent, memory, chat entrypoint
+  orchestrate.py           Orchestrator agent and chat entrypoint
   subagents.py             Eligibility and reviews sub-agents
   data_tools.py            JSON-backed tools and tool schemas
   data/
     courses.json           Mock course and section data
     rmp_reviews.json       Mock Rate My Professors-style data
-    students.json          Mock completed course data
+    students.json          Mock student year and completed course data
 frontend/
   index.html               Vanilla UI
   styles.css               UI styling
