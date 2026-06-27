@@ -13,8 +13,9 @@ This demo keeps the architecture very simple:
 
 ## Multi-Agent Orchestration
 
-The original version of this demo had one agent that could call tools directly.
-This version breaks the same idea down one more level:
+This demo uses a small multi-agent architecture. The top-level agent is the
+orchestrator. Its job is to understand the user's request, decide which
+specialist should help, and combine the results into one final answer.
 
 ```text
 orchestrator_agent
@@ -26,25 +27,30 @@ orchestrator_agent
     `-- GetRMPScore
 ```
 
-The important idea is that a sub-agent can look like a tool to the agent above it.
-The orchestrator does not directly read JSON files. Instead, it decides which
-specialist sub-agent should handle part of the question:
+The important idea is that a sub-agent can look like a tool to the agent above
+it. The orchestrator does not directly read JSON files. Instead, it delegates
+focused work to specialist sub-agents:
 
 - `EligibilityAgent` handles student history, course prerequisites, and schedule eligibility.
 - `ReviewsAgent` handles professor review data.
 
-Then each sub-agent has its own smaller tool loop. For example, if the user asks
-for a schedule, the orchestrator can call `EligibilityAgent`. The eligibility
-sub-agent can then call `GetStudentHistory`, `GetCourseCatalog`, and
-`GetCourseInfo` before returning a short result back to the orchestrator.
+Each sub-agent has its own smaller tool loop. For example, if the user asks for
+a schedule, the orchestrator can call `EligibilityAgent`. The eligibility
+sub-agent can call `GetStudentHistory`, `GetCourseCatalog`, and `GetCourseInfo`,
+then return a short result back to the orchestrator.
 
-So the pattern is the same as before:
+Multi-agent systems are useful because they break a bigger task into smaller
+parts. Instead of one agent trying to do everything, each agent has a narrower
+job and a smaller set of tools. This makes the code easier to explain, easier to
+debug, and easier to extend later.
+
+The basic loop is still simple:
 
 ```text
 LLM asks for a tool -> Python runs the tool -> result goes back to the LLM
 ```
 
-We are just applying that pattern twice:
+In this project, that loop happens at two levels:
 
 ```text
 User
@@ -111,14 +117,17 @@ For a later MCP iteration:
 
 ## Summary
 
-With no buzzwords, all this really boils down to giving an LLM access to tools it can ask you for. The LLM decides which tool or sub-agent it needs to complete its task and tells you. You have to handle this and call the correct Python function. Then you give the result back to the LLM, which uses it to either answer the user or call another tool.
+With no buzzwords, all this really boils down to giving an LLM access to tools
+it can ask you for. The LLM decides which tool or sub-agent it needs to complete
+its task and tells you. You handle that request by calling the correct Python
+function. Then you give the result back to the LLM, which uses it to either
+answer the user or call another tool.
 
 This is known as the agent loop.
 
-Multi-agent orchestration is the same loop with one extra layer. The top-level
-agent calls a sub-agent as a tool, and that sub-agent can call its own tools.
-This helps keep each agent focused and makes the system easier to explain:
-one agent coordinates, while smaller specialist agents do the focused work.
+Multi-agent orchestration uses the same loop, but breaks the work into parts.
+One agent coordinates the overall request, while smaller specialist agents do
+focused work with their own tools.
 
 We strongly encourage you to keep building so here are some suggestions for future improvements for this specific project:
 
