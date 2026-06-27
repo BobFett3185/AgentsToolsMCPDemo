@@ -11,6 +11,54 @@ This demo keeps the architecture very simple:
 - Vanilla HTML/CSS/JS provides a tiny chat UI.
 - Mock JSON data stands in for future database-backed implementations.
 
+## Multi-Agent Orchestration
+
+The original version of this demo had one agent that could call tools directly.
+This version breaks the same idea down one more level:
+
+```text
+orchestrator_agent
+|-- EligibilityAgent  (sub-agent exposed as a tool)
+|   |-- GetStudentHistory
+|   |-- GetCourseCatalog
+|   `-- GetCourseInfo
+`-- ReviewsAgent      (sub-agent exposed as a tool)
+    `-- GetRMPScore
+```
+
+The important idea is that a sub-agent can look like a tool to the agent above it.
+The orchestrator does not directly read JSON files. Instead, it decides which
+specialist sub-agent should handle part of the question:
+
+- `EligibilityAgent` handles student history, course prerequisites, and schedule eligibility.
+- `ReviewsAgent` handles professor review data.
+
+Then each sub-agent has its own smaller tool loop. For example, if the user asks
+for a schedule, the orchestrator can call `EligibilityAgent`. The eligibility
+sub-agent can then call `GetStudentHistory`, `GetCourseCatalog`, and
+`GetCourseInfo` before returning a short result back to the orchestrator.
+
+So the pattern is the same as before:
+
+```text
+LLM asks for a tool -> Python runs the tool -> result goes back to the LLM
+```
+
+We are just applying that pattern twice:
+
+```text
+User
+-> orchestrator agent
+-> sub-agent tool
+-> lower-level data tool
+-> sub-agent summary
+-> orchestrator final answer
+```
+
+The frontend also shows a trace after each response. That trace is useful for
+debugging because it shows each agent step, tool call, tool result, and final
+answer event.
+
 ## what are all these files???
 
 ```text
@@ -63,9 +111,14 @@ For a later MCP iteration:
 
 ## Summary
 
-With no buzzwords, all this really boils down to is giving an LLM access to tools it can ask you for. The LLM decides which tool(s) it needs to complete its tasks and tells you. You have to handle this and call the correct tool function (which you implemented). Then you give the results from that function call back to the LLM which uses it to either give an output or call another tool.
+With no buzzwords, all this really boils down to giving an LLM access to tools it can ask you for. The LLM decides which tool or sub-agent it needs to complete its task and tells you. You have to handle this and call the correct Python function. Then you give the result back to the LLM, which uses it to either answer the user or call another tool.
 
 This is known as the agent loop.
+
+Multi-agent orchestration is the same loop with one extra layer. The top-level
+agent calls a sub-agent as a tool, and that sub-agent can call its own tools.
+This helps keep each agent focused and makes the system easier to explain:
+one agent coordinates, while smaller specialist agents do the focused work.
 
 We strongly encourage you to keep building so here are some suggestions for future improvements for this specific project:
 
