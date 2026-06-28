@@ -1,8 +1,8 @@
 :root {
   color-scheme: light;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: #f6f7f9;
-  color: #17202a;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f5f7;
+  color: #141a21;
 }
 
 * {
@@ -12,25 +12,33 @@
 body {
   margin: 0;
   min-height: 100vh;
+  background: #f4f5f7;
+}
+
+button,
+input,
+select {
+  font: inherit;
 }
 
 .shell {
   min-height: 100vh;
   display: grid;
-  place-items: center;
+  align-items: start;
+  justify-items: center;
   padding: 24px;
 }
 
-.chat-panel {
+.planner-panel {
   width: min(920px, 100%);
-  height: min(760px, calc(100vh - 48px));
+  min-height: min(760px, calc(100vh - 48px));
   display: grid;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: auto auto 1fr;
   background: #ffffff;
-  border: 1px solid #dfe4ea;
-  border-radius: 8px;
+  border: 1px solid #c9cfd7;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: 0 16px 40px rgba(23, 32, 42, 0.08);
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.07);
 }
 
 .topbar {
@@ -38,63 +46,68 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 20px 24px;
-  border-bottom: 1px solid #e8ecf1;
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid #dbe1e7;
   background: #ffffff;
 }
 
 h1 {
   margin: 0;
   font-size: 22px;
-  line-height: 1.2;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
 }
 
 p {
   margin: 4px 0 0;
-  color: #697386;
+  color: #626d78;
   font-size: 14px;
+  line-height: 1.45;
 }
 
-.student-picker {
+.intake-form {
   display: grid;
-  gap: 6px;
-  color: #52606d;
-  font-size: 13px;
+  grid-template-columns: 0.85fr 1fr 1fr 0.7fr auto;
+  gap: 12px;
+  padding: 16px 22px;
+  border-bottom: 1px solid #dbe1e7;
+  background: #fbfcfd;
 }
 
 select,
 input,
 button {
-  font: inherit;
+  border-radius: 0;
 }
 
 select,
 input {
-  border: 1px solid #cfd7e2;
-  border-radius: 6px;
+  min-height: 44px;
+  border: 1px solid #bfc7d1;
   background: #ffffff;
-  color: #17202a;
+  color: #182026;
+  padding: 0 12px;
 }
 
 select {
-  min-width: 160px;
-  padding: 8px 10px;
+  width: 100%;
 }
 
 .messages {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 24px;
+  min-height: 0;
+  padding: 22px;
   overflow-y: auto;
-  background: #f9fafb;
+  background: #f7f8fa;
 }
 
 .message {
-  max-width: 76%;
+  max-width: 100%;
   padding: 12px 14px;
-  border-radius: 8px;
-  line-height: 1.45;
+  border-radius: 0;
+  line-height: 1.5;
   font-size: 15px;
   border: 1px solid transparent;
   white-space: pre-wrap;
@@ -103,29 +116,37 @@ select {
 .message.user {
   align-self: flex-end;
   color: #ffffff;
-  background: #154734;
+  background: #1b4332;
 }
 
 .message.assistant {
   align-self: flex-start;
   background: #ffffff;
-  border-color: #e1e7ef;
+  border-color: #d9dfe6;
+  white-space: normal;
+}
+
+.message.empty-state {
+  align-self: center;
+  justify-self: center;
+  max-width: 520px;
+  text-align: center;
 }
 
 .trace {
   align-self: flex-start;
   max-width: 88%;
   padding: 10px 12px;
-  border: 1px solid #d5dde8;
-  border-radius: 8px;
-  background: #f4f7fb;
+  border: 1px solid #cfd5dc;
+  border-radius: 0;
+  background: #eef1f4;
   color: #405065;
   font-size: 13px;
 }
 
 .trace summary {
   cursor: pointer;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 .trace ol {
@@ -138,26 +159,80 @@ select {
   word-break: break-word;
 }
 
-.composer {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  padding: 16px;
-  border-top: 1px solid #e8ecf1;
-  background: #ffffff;
+.markdown-content > :first-child {
+  margin-top: 0;
 }
 
-input {
-  min-width: 0;
-  padding: 12px 14px;
+.markdown-content > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin: 0.6em 0 0.35em;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.markdown-content h1 { font-size: 1.2rem; }
+.markdown-content h2 { font-size: 1.1rem; }
+.markdown-content h3 { font-size: 1.02rem; }
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 { font-size: 0.98rem; }
+
+.markdown-content p {
+  margin: 0 0 0.75em;
+  color: inherit;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 0.35em 0 0.8em;
+  padding-left: 1.35em;
+}
+
+.markdown-content li {
+  margin: 0.25em 0;
+}
+
+.markdown-content code {
+  padding: 0.1em 0.35em;
+  background: #edf2f7;
+  border: 1px solid #d9e0e8;
+  font-size: 0.95em;
+}
+
+.markdown-content pre {
+  margin: 0.75em 0;
+  padding: 0.75em;
+  overflow-x: auto;
+  background: #edf2f7;
+  border: 1px solid #d9e0e8;
+}
+
+.markdown-content pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.markdown-content a {
+  color: #154734;
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }
 
 button {
-  border: 0;
-  border-radius: 6px;
+  min-height: 44px;
   padding: 0 18px;
+  border: 1px solid #182026;
   color: #ffffff;
-  background: #c75b12;
+  background: #182026;
   cursor: pointer;
 }
 
@@ -171,10 +246,10 @@ button:disabled {
     padding: 0;
   }
 
-  .chat-panel {
-    height: 100vh;
+  .planner-panel {
+    width: 100%;
+    min-height: 100vh;
     border: 0;
-    border-radius: 0;
   }
 
   .topbar {
@@ -182,15 +257,11 @@ button:disabled {
     flex-direction: column;
   }
 
-  .message {
-    max-width: 100%;
-  }
-
-  .composer {
+  .intake-form {
     grid-template-columns: 1fr;
   }
 
-  button {
-    min-height: 44px;
+  .message {
+    max-width: 100%;
   }
 }

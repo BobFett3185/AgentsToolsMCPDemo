@@ -75,7 +75,7 @@ def chat(message: str, student_id: str = "demo-student") -> dict[str, Any]:
 
 
 # this is the function we called in chat that actually calls the gemini api for our orchestrator agent
-def run_gemini_agent(
+def run_gemini_agent( # running the orchestrator
     message: str,
     student_id: str,
     trace: list[dict[str, Any]],
@@ -83,12 +83,7 @@ def run_gemini_agent(
     
     """Send the user message to Gemini and let it call our sub-agent tools.
     We also log that the orchestrator started and what model we are using."""
-    add_trace(
-        trace,
-        "orchestrator",
-        "start",
-        {"student_id": student_id, "message": message},
-    )
+    add_trace(trace,"orchestrator","start", {"student_id": student_id, "message": message})
 
     # import Gemini SDK pieces here so the app can still start if dependencies are missing
     try:
@@ -113,6 +108,7 @@ def run_gemini_agent(
         we pass a prompt in addition to our instructions to give the agent message-specific context.
         instructions are for the agent's general behavior
         the prompt is for this specific user message
+
     '''
 
     # This is where we actually give the user's question and student id
@@ -155,43 +151,32 @@ def run_gemini_agent(
             add_trace(trace, "orchestrator", "final_answer", {"used_tools": used_tools})
             return response_text(response), used_tools, model_used
 
-        # Add Gemini's function-call request message to the conversation history.
+        # Add Gemini's function-call request message to the conversation history. and log that in trace
         contents.append(response.candidates[0].content)
         tool_results = []
-        add_trace( # add to trace 
-            trace,
-            "orchestrator",
-            "tool_calls_requested",
-            {"tools": [call.name for call in function_calls]},
-        )
+        add_trace( trace,"orchestrator","tool_calls_requested",{"tools": [call.name for call in function_calls]})
+
 
         # call all the sub-agent tools it wanted to use and get the results
         for call in function_calls:
             args = dict(call.args or {}) # get arguments from the function call request
-            add_trace( 
-                trace,
-                "orchestrator",
-                "tool_call_started",
-                {"tool": call.name, "args": args},
-            )
 
-            tool_result = call_orchestrator_tool(call.name, args, student_id, trace)
+            add_trace( trace,"orchestrator","tool_call_started", {"tool": call.name, "args": args},  )
+
             # route the function name and arguments to the right Python function
+            tool_result = call_orchestrator_tool(call.name, args, student_id, trace)
 
             used_tools.append(call.name) # log tools used
             for sub_tool in tool_result.get("used_tools", []):
                 used_tools.append(f"{call.name}.{sub_tool}")
-            add_trace(
-                trace,
-                "orchestrator",
-                "tool_call_finished",
-                {"tool": call.name, "status": tool_result.get("status")},
-            )
-            tool_results.append(
+
+            add_trace(trace, "orchestrator","tool_call_finished",{"tool": call.name, "status": tool_result.get("status")}, )
+
+            tool_results.append( # results of the tool call(s)
                 types.Part.from_function_response(name=call.name, response=tool_result)
             )
 
-        # now we can append the tool RESULTS to the contents and go back to top of loop
+        #after we did all the fucntoin calls the orchestrator wants -- we send the results back
         contents.append(types.Content(role="tool", parts=tool_results))
 
     return (  # if we get here then too many tool calls so return message to user

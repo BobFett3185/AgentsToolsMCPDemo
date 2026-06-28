@@ -8,43 +8,58 @@
   </head>
   <body>
     <main class="shell">
-      <section class="chat-panel" aria-label="Course planner chat">
+      <section class="planner-panel" aria-label="Course planner">
         <header class="topbar">
           <div>
             <h1>Agentic Course Planner</h1>
-            <p>Gemini agent loop with subagents and tools</p>
+            <p>Enter your interests, career goal, and desired course load.</p>
           </div>
-          <label class="student-picker">
-            <span>Student</span>
-            <select id="studentId">
-              <option value="keane">Keane</option>
-              <option value="new-student">New Student</option>
-              <option value="systems-track">Systems Track Student</option>
-              <option value="ai-curious">AI Curious Student</option>
-              <option value="custom-student">Custom Student</option>
-            </select>
-          </label>
         </header>
 
-        <div id="messages" class="messages" aria-live="polite">
-          <article class="message assistant">
-            Ask about a specific course, prerequisites, professor reviews, or schedule planning.
-            I can help you make your schedule for next semester! 
-            Try to include your major year and desired course load!
-          </article>
-        </div>
+        <form id="scheduleForm" class="composer intake-form">
+          <select id="studentId" name="studentId" aria-label="Student profile">
+            <option value="demo-student" selected>demo student</option>
+            <option value="another-demo-student">Another Demo Student</option>
+            <option value="new-student">New Student</option>
+            <option value="systems-track">Systems Track Student</option>
+            <option value="ai-curious">AI Curious Student</option>
+            <option value="custom-student">Custom Student</option>
+          </select>
 
-        <form id="chatForm" class="composer">
           <input
-            id="messageInput"
-            name="message"
+            id="interests"
+            name="interests"
             type="text"
-            autocomplete="off"
-            placeholder="Can I take CS 3345 next semester?"
+            placeholder="Interests"
             required
           >
-          <button type="submit">Send</button>
+
+          <input
+            id="careerGoal"
+            name="careerGoal"
+            type="text"
+            placeholder="Career Goals"
+            required
+          >
+
+          <select id="courseLoad" name="courseLoad" required>
+            <option value="3">3 courses</option>
+            <option value="4" selected>4 courses</option>
+            <option value="5">5 courses</option>
+            <option value="6">6 courses</option>
+          </select>
+
+          <button type="submit">Generate schedule</button>
         </form>
+
+        <section class="results" aria-live="polite">
+          <div id="messages" class="messages">
+            <article class="message assistant empty-state">
+              Your generated schedule will appear here, followed by the trace of agent calls.
+            </article>
+          </div>
+        </section>
+
       </section>
     </main>
 

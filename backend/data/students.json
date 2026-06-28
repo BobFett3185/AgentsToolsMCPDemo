@@ -1,6 +1,6 @@
 {
   "demo-student": {
-    "name": "Keane",
+    "name": "demo student",
     "year": "junior",
     "completedCourses": [
       "CS 1336",
@@ -12,8 +12,8 @@
       "MATH 2418"
     ]
   },
-  "keane": {
-    "name": "Keane",
+  "another-demo-student": {
+    "name": "Another Demo Student",
     "year": "junior",
     "completedCourses": [
       "CS 1336",

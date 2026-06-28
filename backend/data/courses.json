@@ -145,6 +145,64 @@
       }
     ]
   },
+  "CS 3360": {
+    "title": "Computer Networks",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Vint Cerf",
+        "days": ["Monday", "Wednesday"],
+        "time": "11:30 AM - 12:45 PM",
+        "room": "ECSW 1.430",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "Radia Perlman",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
+      }
+    ]
+  },
+  "CS 3361": {
+    "title": "Operating Systems",
+    "prerequisites": ["CS 2336", "CS 3377"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Ken Thompson",
+        "days": ["Tuesday", "Thursday"],
+        "time": "10:00 AM - 11:15 AM",
+        "room": "ECSS 2.215",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 3380": {
+    "title": "Computer Security",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Bruce Schneier",
+        "days": ["Monday", "Wednesday"],
+        "time": "4:00 PM - 5:15 PM",
+        "room": "ECSW 2.220",
+        "modality": "In person"
+      },
+      {
+        "section": "501",
+        "professor": "Whitfield Diffie",
+        "days": ["Tuesday"],
+        "time": "7:00 PM - 9:45 PM",
+        "room": "ECSS 2.306",
+        "modality": "In person"
+      }
+    ]
+  },
   "CS 4337": {
     "title": "Organization of Programming Languages",
     "prerequisites": ["CS 3345"],
@@ -155,6 +213,34 @@
         "days": ["Tuesday", "Thursday"],
         "time": "4:00 PM - 5:15 PM",
         "room": "ECSW 2.325",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4340": {
+    "title": "Artificial Intelligence",
+    "prerequisites": ["CS 3345", "CS 3341"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "John McCarthy",
+        "days": ["Monday", "Wednesday"],
+        "time": "1:00 PM - 2:15 PM",
+        "room": "ECSW 1.220",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4349": {
+    "title": "Advanced Database Systems",
+    "prerequisites": ["CS 4347"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Edgar Codd",
+        "days": ["Tuesday", "Thursday"],
+        "time": "2:30 PM - 3:45 PM",
+        "room": "ECSW 2.305",
         "modality": "In person"
       }
     ]
@@ -170,6 +256,28 @@
         "time": "11:30 AM - 12:45 PM",
         "room": "ECSS 2.415",
         "modality": "In person"
+      }
+    ]
+  },
+  "CS 4348": {
+    "title": "Software Testing and Quality Assurance",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Kent Beck",
+        "days": ["Monday", "Wednesday"],
+        "time": "2:30 PM - 3:45 PM",
+        "room": "ECSW 1.305",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "Martin Fowler",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
       }
     ]
   },
@@ -195,6 +303,34 @@
       }
     ]
   },
+  "CS 4352": {
+    "title": "Human-Computer Interaction",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Don Norman",
+        "days": ["Tuesday", "Thursday"],
+        "time": "8:30 AM - 9:45 AM",
+        "room": "ECSW 1.210",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4361": {
+    "title": "Cloud Computing",
+    "prerequisites": ["CS 3377", "CS 3360"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Werner Vogels",
+        "days": ["Monday", "Wednesday"],
+        "time": "6:00 PM - 7:15 PM",
+        "room": "ECSS 2.420",
+        "modality": "In person"
+      }
+    ]
+  },
   "CS 4384": {
     "title": "Automata Theory",
     "prerequisites": ["CS 2305", "CS 3345"],
@@ -209,6 +345,56 @@
       }
     ]
   },
+  "CS 4385": {
+    "title": "Compiler Construction",
+    "prerequisites": ["CS 3377", "CS 4337"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Dennis Ritchie",
+        "days": ["Tuesday", "Thursday"],
+        "time": "1:00 PM - 2:15 PM",
+        "room": "ECSS 2.125",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4386": {
+    "title": "Mobile Application Development",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Anders Hejlsberg",
+        "days": ["Monday", "Wednesday"],
+        "time": "4:00 PM - 5:15 PM",
+        "room": "ECSW 1.335",
+        "modality": "In person"
+      },
+      {
+        "section": "0W1",
+        "professor": "James Gosling",
+        "days": ["Online"],
+        "time": "Asynchronous",
+        "room": "Online",
+        "modality": "Online"
+      }
+    ]
+  },
+  "CS 4387": {
+    "title": "Software Product Design",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Maya Angelou",
+        "days": ["Tuesday", "Thursday"],
+        "time": "11:30 AM - 12:45 PM",
+        "room": "ECSS 2.140",
+        "modality": "In person"
+      }
+    ]
+  },
   "CS 4485": {
     "title": "Computer Science Project",
     "prerequisites": ["CS 3345", "CS 3377"],
@@ -219,6 +405,20 @@
         "days": ["Friday"],
         "time": "10:00 AM - 12:45 PM",
         "room": "ECSW 1.315",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4487": {
+    "title": "Data Mining and Discovery",
+    "prerequisites": ["CS 3341", "CS 3345"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Andrew Ng",
+        "days": ["Tuesday", "Thursday"],
+        "time": "4:00 PM - 5:15 PM",
+        "room": "ECSW 1.440",
         "modality": "In person"
       }
     ]
@@ -245,6 +445,34 @@
       }
     ]
   },
+  "CS 4488": {
+    "title": "Machine Learning Systems",
+    "prerequisites": ["CS 4375", "CS 3360"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Fei-Fei Li",
+        "days": ["Monday", "Wednesday"],
+        "time": "10:00 AM - 11:15 AM",
+        "room": "ECSW 2.260",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4489": {
+    "title": "Game Development",
+    "prerequisites": ["CS 2336"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Shigeru Miyamoto",
+        "days": ["Tuesday", "Thursday"],
+        "time": "6:00 PM - 7:15 PM",
+        "room": "ECSW 1.205",
+        "modality": "In person"
+      }
+    ]
+  },
   "CS 4375": {
     "title": "Introduction to Machine Learning",
     "prerequisites": ["CS 3345", "CS 3341"],
@@ -263,6 +491,20 @@
         "days": ["Tuesday"],
         "time": "7:00 PM - 9:45 PM",
         "room": "ECSS 2.306",
+        "modality": "In person"
+      }
+    ]
+  },
+  "CS 4390": {
+    "title": "Computer Vision",
+    "prerequisites": ["CS 4375"],
+    "sections": [
+      {
+        "section": "001",
+        "professor": "Fei-Fei Li",
+        "days": ["Tuesday", "Thursday"],
+        "time": "1:00 PM - 2:15 PM",
+        "room": "ECSW 2.150",
         "modality": "In person"
       }
     ]
