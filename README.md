@@ -105,7 +105,7 @@ For the first working agent loop, students only need a Gemini API key:
 4. Make a .env file in the root of the project, meaning it should not be in any folder
 5. Copy `.env.example` to `.env`
 6. Replace `YOUR_GOOGLE_AI_STUDIO_KEY` with the real key.
-7. Make sure the model is: `GEMINI_MODEL="gemini-2.0-flash"`
+7. Make sure the model is: `GEMINI_MODEL= gemini-3.1-flash-lite`
 8. Start the app with `uvicorn backend.main:app --reload`
 
 For a later MCP iteration:
