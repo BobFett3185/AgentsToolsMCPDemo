@@ -128,7 +128,7 @@ def run_subagent(
                 types.Part.from_function_response(name=call.name, response=tool_result)
             )
 
-        contents.append(types.Content(role="tool", parts=tool_results))
+        contents.append(types.Content(role="user", parts=tool_results))
 
     add_trace(trace, agent_name, "max_tool_rounds_reached", {"used_tools": used_tools})
     return {

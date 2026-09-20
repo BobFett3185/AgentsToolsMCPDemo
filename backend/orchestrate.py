@@ -178,7 +178,7 @@ def run_gemini_agent( # running the orchestrator
             )
 
         #after we did all the fucntoin calls the orchestrator wants -- we send the results back
-        contents.append(types.Content(role="tool", parts=tool_results))
+        contents.append(types.Content(role="user", parts=tool_results))
 
     return (  # if we get here then too many tool calls so return message to user
         "Gemini kept asking for tools and did not produce a final answer. Try a more specific question.",
