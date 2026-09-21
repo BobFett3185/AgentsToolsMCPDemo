@@ -108,28 +108,12 @@ def run_subagent(
             {"tools": [call.name for call in function_calls]},
         )
 
-        for call in function_calls:
-            args = dict(call.args or {})
-            add_trace(
-                trace,
-                agent_name,
-                "tool_call_started",
-                {"tool": call.name, "args": args},
-            )
-            tool_result = tool_handler(call.name, args)
-            used_tools.append(call.name)
-            add_trace(
-                trace,
-                agent_name,
-                "tool_call_finished",
-                {"tool": call.name, "status": tool_result.get("status")},
-            )
-            tool_results.append(
-                types.Part.from_function_response(name=call.name, response=tool_result)
-            )
+        # CODE HERE ------- CODE HERE --------------- CODE HERE 
 
-        contents.append(types.Content(role="user", parts=tool_results))
 
+
+    # END OF CODE HERE ------- END OF CODE HERE --------------- END OF CODE HERE
+    
     add_trace(trace, agent_name, "max_tool_rounds_reached", {"used_tools": used_tools})
     return {
         "status": "error",
